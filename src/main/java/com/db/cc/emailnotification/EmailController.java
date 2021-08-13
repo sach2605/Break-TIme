@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.db.cc.model.Notifications;
 import com.db.cc.model.User;
@@ -24,6 +26,7 @@ public class EmailController {
 	@Autowired
 	private EmailSender emailSender;
 	
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -70,7 +73,5 @@ public class EmailController {
 			
 		}
 		
-			
 	}
-	
 }
