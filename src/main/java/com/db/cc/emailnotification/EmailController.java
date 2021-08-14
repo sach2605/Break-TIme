@@ -1,6 +1,7 @@
 package com.db.cc.emailnotification;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -40,6 +41,8 @@ public class EmailController {
 	public void sendSingleEmail() {
 		
 		List<User> users = userRepository.findAll();
+		List<Notifications> notifications = notificationsRepository.findAll();
+		
 		
 		for(User user : users) {
 			
@@ -50,12 +53,13 @@ public class EmailController {
 			List<String> notificationText = new ArrayList<>();
 			
 			for(String pref : preferences) {
-				List<Notifications> notifications = notificationsRepository.findByPreference(pref);
+				
 				
 				for(Notifications notification: notifications) {
-					notificationText.add(notification.getNotificationMessage());
+					if(notification.getPreference().equalsIgnoreCase(pref) ) {
+						notificationText.add(notification.getNotificationMessage());
+					}
 				}
-				
 			}
 			
 			Random random = new Random();
