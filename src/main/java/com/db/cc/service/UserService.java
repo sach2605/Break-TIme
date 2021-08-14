@@ -31,6 +31,9 @@ public class UserService {
 		user.setEmail(registrationRequest.getEmail());
 		user.setPassword(registrationRequest.getPassword());
 		user.setFrequency(registrationRequest.getFrequency());
+		String preferencesString = String.join(",", registrationRequest.getPreferences());
+		user.setNotificationsStatus("active");
+		user.setPreferences(preferencesString);
 		
 		User test = userRepository.save(user);
 		if(test!=null)
@@ -55,20 +58,50 @@ public class UserService {
 		}
 	}
 	
-	// set preferences
-	public String setPreferences(PreferencesRequest preferencesRequest)
+	public String editPreferences(PreferencesRequest preferencesRequest)
 	{
-		Preferences preferences = new Preferences();
-		preferences.setUsername(preferencesRequest.getUsername());
 		String preferencesString = String.join(",", preferencesRequest.getPreferences());
-		preferences.setPreferences(preferencesString);
+		User user = userRepository.findByUsername(preferencesRequest.getUsername());
+		user.setPreferences(preferencesString);
+		User test = userRepository.save(user);
 		
-		Preferences test = preferencesRepository.save(preferences);
 		if(test!=null)
-			return "Preferences set successfully!";
+			return "Preferences updated successfully!";
 		else
-			return "Could not set preferences, please try again!";
+			return "Could not update preferences, please try again!";
 		
 	}
+	
+	public String unsubscribe(String username)
+	{
+		userRepository.deleteByUsername(username);
+		return "You have successfully unsubscribed!";
+		
+	}
+	
+	public String logout(String username)
+	{
+		User user = userRepository.findByUsername(username);
+		user.setNotificationsStatus("inactive");
+		userRepository.save(user);
+		
+		return "Logged out successfully!";
+	}
+	
+	// set preferences
+//	public String setPreferences(PreferencesRequest preferencesRequest)
+//	{	
+//		Preferences preferences = new Preferences();
+//		preferences.setUsername(preferencesRequest.getUsername());
+//		String preferencesString = String.join(",", preferencesRequest.getPreferences());
+//		preferences.setPreferences(preferencesString);
+//		
+//		Preferences test = preferencesRepository.save(preferences);
+//		if(test!=null)
+//			return "Preferences set successfully!";
+//		else
+//			return "Could not set preferences, please try again!";
+//		
+//	}
 	
 }

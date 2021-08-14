@@ -1,5 +1,7 @@
 package com.db.cc.request;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +22,7 @@ public class RegistrationRequest {
 	public String password;
 	
 	public int frequency; 
+	
+	public List<String> preferences;
 	
 }

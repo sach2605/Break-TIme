@@ -1,5 +1,7 @@
 package com.db.cc.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -27,5 +29,9 @@ public class User {
 	private String password;
 	
 	private int frequency; // 2, 4 or 6
+	
+	private String preferences;
+	
+	private String notificationsStatus;
 	
 }
