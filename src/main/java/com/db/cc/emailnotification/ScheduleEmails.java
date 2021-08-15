@@ -58,9 +58,11 @@ public class ScheduleEmails {
 				
 				for(User user : users) {
 					
+					if(!user.getNotificationsStatus().equalsIgnoreCase("active")) {
+						continue;
+					}
 					
-					
-					String preferences[] = preferencesRepository.findByUsername(user.getUsername()).getPreferences().split(",");
+					String preferences[] = user.getPreferences().split(",");
 					
 					List<String> notificationText = new ArrayList<>();
 					
