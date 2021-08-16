@@ -17,13 +17,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class User {
 
-	@Id
-	private String username;
 	
 	private String firstName;
 	
 	private String lastName;
 	
+	@Id
 	private String email;
 	
 	private String password;
