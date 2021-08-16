@@ -16,6 +16,7 @@ import com.db.cc.request.PreferencesRequest;
 import com.db.cc.request.RegistrationRequest;
 import com.db.cc.response.LoginResponse;
 //import org.apache.commons.lang3.StringUtils;
+import com.db.cc.response.ProfileResponse;
 
 @Service
 @Component
@@ -47,6 +48,7 @@ public class UserService {
 			loginResponse.setMessage("User registered successfully!");
 			loginResponse.setUsername(test.getFirstName() + " " + test.getLastName());
 			loginResponse.setPreferences(registrationRequest.getPreferences());
+			
 		}
 		else {
 			loginResponse.setMessage("Could not register user, please try again!");
@@ -111,6 +113,16 @@ public class UserService {
 		userRepository.save(user);
 		
 		return "Logged out successfully!";
+	}
+	
+	
+	public ProfileResponse getPreferences(String email) {
+		User user = userRepository.findByEmail(email);
+		ProfileResponse profileResponse = new ProfileResponse();
+		profileResponse.setFullName(user.getFirstName() + " " + user.getLastName());
+		String pref[] = user.getPreferences().split(",");
+		profileResponse.setPreferences(Arrays.asList(pref));
+		return profileResponse;
 	}
 	
 	// set preferences

@@ -57,20 +57,10 @@ public class UserController {
 	
 	@GetMapping(path = "/getpreferences/{username}")
 	public ResponseEntity<?> getPreferences(@PathVariable String username) {
-		User user = userRepository.findByEmail(username);
-		ProfileResponse profileResponse = new ProfileResponse();
-		profileResponse.setFullName(user.getFirstName() + " " + user.getLastName());
-		String pref[] = user.getPreferences().split(",");
-		profileResponse.setPreferences(Arrays.asList(pref));
+		ProfileResponse profileResponse = userService.getPreferences(username);
 		return new ResponseEntity<ProfileResponse>(profileResponse, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/getname/{email}")
-	public ResponseEntity<?> getName(@PathVariable String email) {
-		User user = userRepository.findByEmail(email);
-		String name = user.getFirstName() + " " + user.getLastName();
-		return new ResponseEntity<String>(name, HttpStatus.OK);
-	}
 	
 	@GetMapping(path = "/unsubscribe/{username}", produces = "application/json")
 	public ResponseEntity<String> unsubscribe(@PathVariable("username") String username)
